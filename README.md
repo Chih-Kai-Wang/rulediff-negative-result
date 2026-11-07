@@ -1,19 +1,21 @@
 # RuleDiff Negative-Result Technical Report
 
-This is the public technical-report release of *When 0.99 Becomes 0.67: A Confirmatory Failure of Lexical Policy-Impact Prediction* by Chih-Kai Wang, National Taipei University of Education.
+This repository publishes the technical report *When 0.99 Becomes 0.67: A Confirmatory Failure of Lexical Policy-Impact Prediction* by Chih-Kai Wang, National Taipei University of Education. It also ships the frozen artifact that recomputes every number in the report.
 
-The report is not peer reviewed, accepted, or published in MLSys proceedings. It preserves the terminal confirmatory result: the frozen lexical model scored 0.9919 stratified macro-F1 on development and 0.6661 on one held-out retail packet, with 14 affected-guard false negatives. The work does not claim observed unsafe executions or a validated end-to-end safety guarantee.
+The report asks whether a cheap lexical model can predict which compiled policy guards go stale when a natural-language policy changes. On the development packet, the frozen lexical model scored 0.9919 stratified macro-F1. We then evaluated it once on a separately built retail packet, where it scored 0.6661 and missed 14 affected guards. We kept that result as the terminal answer and did not retune on it.
+
+The report has not been peer reviewed, accepted, or published in MLSys proceedings. It does not claim that any unsafe execution was observed, and it does not offer a validated end-to-end safety guarantee.
 
 ## Contents
 
-- `main.pdf`: public four-page technical report.
-- `main.tex` and local style files: report source.
-- `references.bib`: bibliography.
-- `artifact_bundle.tar.gz`: frozen reproducibility package.
-- `CITATION.cff`: public citation metadata.
-- `LICENSE`: MIT license for author-created material.
-- `PUBLICATION_MANIFEST.sha256`: release checksums.
-- `tools/pack_artifact_bundle.py`: deterministic packer used to rebuild `artifact_bundle.tar.gz`.
+- `main.pdf`: the four-page public technical report.
+- `main.tex` and the local style files: the report source.
+- `references.bib`: the bibliography.
+- `artifact_bundle.tar.gz`: the frozen package that reproduces the evidence.
+- `CITATION.cff`: citation metadata.
+- `LICENSE`: the MIT license for author-created material.
+- `PUBLICATION_MANIFEST.sha256`: checksums for every release file.
+- `tools/pack_artifact_bundle.py`: the deterministic packer that rebuilds `artifact_bundle.tar.gz`.
 
 ## Reproduce the evidence
 
@@ -23,12 +25,12 @@ Extract the artifact archive, enter its `artifact` directory, and run:
 python3 verify_artifact.py
 ```
 
-The expected final line is `ARTIFACT_VERIFICATION_PASS`. The verifier uses Python 3.11 or newer, requires no third-party packages or network access, and recomputes all reported development and terminal private aggregates.
+The last line printed should be `ARTIFACT_VERIFICATION_PASS`. The verifier needs Python 3.11 or newer, with no third-party packages and no network access. It recomputes every reported development aggregate and every terminal private aggregate.
 
 ## Revisions
 
-- v1.0.1: reissued `artifact_bundle.tar.gz` so the verifier passes on Python 3.12 and newer and when extracted with GNU tar. Python 3.12 changed `sum()` over floats to compensated summation, which moves the recomputed G3 stratified macro-F1 and upper bootstrap endpoint by one unit in the last place (about `1.1e-16`); the verifier now compares these with the `1e-12` absolute tolerance it already used for development scores. The v1.0.0 bundle (sha256 `3291bb5d…109a1`) also contained macOS `._*` metadata entries that broke the manifest check on Linux. Data, labels, evaluator code, and recorded results are byte-identical; only `verify_artifact.py`, the bundle `README.md`, and `MANIFEST.sha256` changed.
+- v1.0.1 reissued `artifact_bundle.tar.gz` so that the verifier passes on Python 3.12 and newer and after extraction with GNU tar. Python 3.12 switched `sum()` over floats to compensated summation. That moves the recomputed G3 stratified macro-F1 and the upper bootstrap endpoint by one unit in the last place, about `1.1e-16`. The verifier now compares these two values with the `1e-12` absolute tolerance it already applied to development scores. The v1.0.0 bundle (sha256 `3291bb5d…109a1`) also contained macOS `._*` metadata entries, which broke the manifest check on Linux. Data, labels, evaluator code, and recorded results are byte-identical between the two versions. Only `verify_artifact.py`, the bundle `README.md`, and `MANIFEST.sha256` changed.
 
 ## Scope
 
-The full-paper follow-up was stopped under its preregistered rule because even oracle selective routing was slower than guard-only lazy recompilation in all four dense primary regimes. This release is the frozen negative-result fallback and does not revive that rejected positive full-paper claim.
+A full-paper follow-up aimed at a positive claim was stopped under its preregistered rule. Even oracle selective routing was slower than guard-only lazy recompilation in all four dense primary regimes. This release is the frozen negative-result fallback. It does not revive the rejected full-paper claim.
