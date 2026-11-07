@@ -1,6 +1,6 @@
 # RuleDiff Negative-Result Technical Report
 
-This repository publishes the technical report *When 0.99 Becomes 0.67: A Confirmatory Failure of Lexical Policy-Impact Prediction* by Chih-Kai Wang, National Taipei University of Education. It also ships the frozen artifact that recomputes every number in the report.
+This repository publishes the technical report *When 0.99 Becomes 0.67: A Confirmatory Failure of Lexical Policy-Impact Prediction* by Chih-Kai Wang, National Taipei University of Education, with the frozen artifact that recomputes its numbers.
 
 The report asks whether a cheap lexical model can predict which compiled policy guards go stale when a natural-language policy changes. On the development packet, the frozen lexical model scored 0.9919 stratified macro-F1. We then evaluated it once on a separately built retail packet, where it scored 0.6661 and missed 14 affected guards. We kept that result as the terminal answer and did not retune on it.
 
@@ -8,14 +8,14 @@ The report has not been peer reviewed, accepted, or published in MLSys proceedin
 
 ## Contents
 
-- `main.pdf`: the four-page public technical report.
-- `main.tex` and the local style files: the report source.
-- `references.bib`: the bibliography.
-- `artifact_bundle.tar.gz`: the frozen package that reproduces the evidence.
+- `main.pdf`: four-page public technical report.
+- `main.tex` and local style files: report source.
+- `references.bib`: bibliography.
+- `artifact_bundle.tar.gz`: frozen reproducibility package.
 - `CITATION.cff`: citation metadata.
-- `LICENSE`: the MIT license for author-created material.
-- `PUBLICATION_MANIFEST.sha256`: checksums for every release file.
-- `tools/pack_artifact_bundle.py`: the deterministic packer that rebuilds `artifact_bundle.tar.gz`.
+- `LICENSE`: MIT license for author-created material.
+- `PUBLICATION_MANIFEST.sha256`: release checksums.
+- `tools/pack_artifact_bundle.py`: deterministic packer that rebuilds `artifact_bundle.tar.gz`.
 
 ## Reproduce the evidence
 
